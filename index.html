@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+</head>
+<body class="bg-slate-100 min-h-screen">
+    <header class="bg-white border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+            <h1 class="text-lg font-bold text-slate-900">Unit Converter</h1>
+        </div>
+    </header>
+    
+    <section class="max-w-5xl mx-auto px-6 pt-12 pb-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">
+            Convert anything, instantly
+        </h2>
+        <p class="text-base text-slate-600 mt-3 max-w-xl mx-auto">
+            To convert multiple at once leave a space between each value
+        </p>
+    </section>
+    
+    <main class="max-w-5xl mx-auto px-6 pb-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-slate-900">
+                    Weight
+                </h3>
+                <div>
+                    <select id="w-select-input" class="mb-4">
+                        <option>Kilograms to Pounds</option>
+                        <option>Pounds to Kilograms</option>
+                    </select>
+                </div>
+                <input
+                    id="w-input"
+                    type="string"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
+                    focus:border-blue-500 focus:outline-none"
+                />
+                <button
+                    id="w-button"
+                    class="w-full mt-4 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white
+                    hover:bg-blue-700 transition cursor-pointer"
+                >
+                    Convert
+                </button>
+                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+                    <p id="w-result" class="text-2xl font-bold text-blue-600 mt-1"></p>
+                </div>
+            </div>
+    
+    
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-slate-900">
+                    Distance
+                </h3>
+                <div>
+                    <select id="d-select-input" class="mb-4">
+                        <option>Miles to Kilometres</option>
+                        <option>Kilometres to Miles</option>
+                    </select>
+                </div>
+                <input
+                    id="d-input"
+                    type="string"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
+                    focus:border-blue-500 focus:outline-none"
+                />
+                <button
+                    id="d-button"
+                    class="w-full mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white
+                    hover:bg-emerald-700 transition cursor-pointer">
+                    Convert
+                </button>
+                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+                    <p id="d-result" class="text-2xl font-bold text-emerald-600 mt-1"></p>
+                </div>
+            </div>
+    
+    
+            <div class="bg-white rounded-2xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-slate-900">
+                    Temperture
+                </h3>
+                <div>
+                    <select id="t-select-input" class="mb-4">
+                        <option>Celsius to Fahrenheit</option>
+                        <option>Fahrenheit to Celsius</option>
+                    </select>
+                </div>
+                <input
+                    id="t-input"
+                    type="string"
+                    value="0"
+                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
+                    focus:border-violet-500 focus:outline-none"
+                />
+                <button
+                    id="t-button"
+                    class="w-full mt-4 rounded-lg bg-violet-600 px-4 py-2 font-semibold text-white
+                    hover:bg-violet-700 transition cursor-pointer">
+                    Convert
+                </button>
+                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+                    <p id="t-result" class="text-2xl font-bold text-violet-600 mt-1"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="module" src="/main.js"></script>
+</body>
+</html>
