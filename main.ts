@@ -1,35 +1,166 @@
-const findConversion = (convert: string) => {
-    if (convert === 'Kilograms to Pounds') {
-        return (kg: number): number => kg * 2.205 ;
+//student Name: sanjana, sarah, madelaine
+//Date: september 29, 2026
+//Program: CPRG 306  - web Devlopment 2 
+//
+//Program Description:
+// This program provides unit conversions between metric and
+// imperial units for weight, distance, and temperature.
+// The inputs can be entered as a single numerical value or
+// as a list of numerical values separated by spaces.
+// The program processes the selected conversion using a
+// higher-order function that returns an arrow conversion function.
+// The converted value or values are then displayed as the
+// output in the appropriate converter section of the website.
+// 
 
-    } else if (convert === 'Pounds to Kilograms') {
-        return (lb: number): number => lb / 2.205 ;
 
-    } else if (convert === 'Miles to Kilometres') {
-        return (m: number): number => m * 1.609;
 
-    } else if (convert === 'Kilometres to Miles') {
-        return (km: number): number => km / 1.609;
+// ============================================================
+// HIGHER-ORDER CONVERSION FUNCTION
+// Takes the starting unit and ending unit as two parameters.
+// Returns an arrow function that accepts either a single
+// number or an array of numbers.
+// ============================================================
 
-    } else if (convert === 'Celcius to Fahrenheit') {
-        return (c: number): number => (c * 9/5) + 32;
+type NumericValue = number | number[];
+
+const findConversion = (
+    fromUnit: string,
+    toUnit: string
+): ((value: NumericValue) => NumericValue) => {
+
+    // Converts one individual number.
+    const convertSingle = (value: number): number => {
+
+        if (fromUnit === "Kilograms" && toUnit === "Pounds") {
+            return value * 2.205;
+        }
+
+        if (fromUnit === "Pounds" && toUnit === "Kilograms") {
+            return value / 2.205;
+        }
+
+        if (fromUnit === "Kilometres" && toUnit === "Miles") {
+            return value / 1.609;
+        }
+
+        if (fromUnit === "Miles" && toUnit === "Kilometres") {
+            return value * 1.609;
+        }
+
+        if (fromUnit === "Celsius" && toUnit === "Fahrenheit") {
+            return (value * 9 / 5) + 32;
+        }
+
+        if (fromUnit === "Fahrenheit" && toUnit === "Celsius") {
+            return (value - 32) * 5 / 9;
+        }
+
+        throw new Error(
+            `Unsupported conversion: ${fromUnit} to ${toUnit}`
+        );
+    };
+
+    // Returns an arrow function that accepts either
+    // one number or an array of numbers.
+    return (value: NumericValue): NumericValue => {
+
+        if (Array.isArray(value)) {
+            return value.map((item: number) => convertSingle(item));
+        }
+
+        return convertSingle(value);
+    };
+};
+// ============================================================
+// HANDLE CONVERSION
+// Reads the selected conversion, converts the input values,
+// and returns the formatted result.
+// ============================================================
+
+const handleConversion = (
+    array: string[],
+    selectedElement: HTMLSelectElement
+): string => {
+
+    let fromUnit: string;
+    let toUnit: string;
+
+
+    // Determine the units based on the selected option.
+    if (selectedElement.value === "Kilograms to Pounds") {
+
+        fromUnit = "Kilograms";
+        toUnit = "Pounds";
+
+    } else if (selectedElement.value === "Pounds to Kilograms") {
+
+        fromUnit = "Pounds";
+        toUnit = "Kilograms";
+
+    } else if (selectedElement.value === "Miles to Kilometres") {
+
+        fromUnit = "Miles";
+        toUnit = "Kilometres";
+
+    } else if (selectedElement.value === "Kilometres to Miles") {
+
+        fromUnit = "Kilometres";
+        toUnit = "Miles";
+
+    } else if (selectedElement.value === "Celsius to Fahrenheit") {
+
+        fromUnit = "Celsius";
+        toUnit = "Fahrenheit";
 
     } else {
-        return (f: number): number => (f - 32) / (9/5);
 
-    };
+        fromUnit = "Fahrenheit";
+        toUnit = "Celsius";
+    }
+
+
+    // Create the conversion function.
+    const convert = findConversion(fromUnit, toUnit);
+
+
+    // Convert input strings into numbers.
+    const numbers: number[] = array
+        .filter((value: string) => value.trim() !== "")
+        .map((value: string) => Number(value));
+
+
+    // Check for invalid input.
+    if (numbers.some((value: number) => Number.isNaN(value))) {
+        return "Please enter numbers only.";
+    }
+
+
+    // Pass either a single number or an array.
+    const input: number | number[] =
+        numbers.length === 1
+            ? numbers[0]
+            : numbers;
+
+
+    const result = convert(input);
+
+
+    // Format an array of results.
+    if (Array.isArray(result)) {
+
+        return result
+            .map((value: number) => value.toFixed(2))
+            .join(", ");
+    }
+
+
+    // Format a single result.
+    return result.toFixed(2);
 };
-const handleConversion = (array: string[], selectedElement: HTMLSelectElement): string => {
-    let output: string = ' ';
-    const convert = findConversion(selectedElement.value);
-    for (let i = 0; i< array.length; i++) {
-        let from: number = Number(array[i]);
-        from = convert(from);
-        output += '\n';
-        output += String(from);
-    };
-    return output;
-};
+//HTML ELEMENT REFRENCES
+//Gets the input fields and result areas from the webpage
+//so that JavaScript can read input values and display results.
 
 const wInput = document.getElementById("w-input") as HTMLInputElement;
 const wResult = document.getElementById("w-result") as HTMLParagraphElement;
@@ -38,25 +169,125 @@ const dResult = document.getElementById("d-result") as HTMLParagraphElement;
 const tInput = document.getElementById("t-input") as HTMLInputElement;
 const tResult = document.getElementById("t-result") as HTMLParagraphElement;
 
+//WEIGHT CONVERTER
+//Reads the weight input values and applies the selected
+//kilograms-to-pounds or pounds-to-kilograms coversion.
 const handleWeightConversion = () => {
-    const inputArray: string[] = wInput.value.split(" ");
+    const inputArray: string[] = wInput.value.trim().split(/\s+/);
     const selectedElement = document.getElementById("w-select-input") as HTMLSelectElement;
     wResult.textContent = handleConversion(inputArray, selectedElement);
 };
+
+//DISTANCE CONVERTER
+//Reads the distance input values and applies the selected
+//miles-to-kilometres or kilometres-to-miles conversion.
 const handleDistanceConversion = () => {
-    const inputArray: string[] = dInput.value.split(" ");
+    const inputArray: string[] = dInput.value.trim().split(/\s+/);
     const selectedElement = document.getElementById("d-select-input") as HTMLSelectElement;
     dResult.textContent = handleConversion(inputArray, selectedElement);
 };
+
+//TEMPERATURE CONVERTER
+//Reads the temperature input values and applies the selected
+//Celsius-to-Fahrenheit or Fahrenheit-to-Celsius conversion
+
 const handleTempConversion = () => {
-    const inputArray: string[] = tInput.value.split(" ");
+    const inputArray: string[] = tInput.value.trim().split(/\s+/);
     const selectedElement = document.getElementById("t-select-input") as HTMLSelectElement;
     tResult.textContent = handleConversion(inputArray, selectedElement);
 };
 
+//BUTTON EVENT LISTENERS
+//Connects each Convert button to its corresponding converter 
+//function so the conversion occurs when the user clicks it.
 const wButton = document.getElementById("w-button") as HTMLButtonElement;
 const dButton = document.getElementById("d-button") as HTMLButtonElement;
 const tButton = document.getElementById("t-button") as HTMLButtonElement;
 wButton.addEventListener("click", handleWeightConversion);
 dButton.addEventListener("click", handleDistanceConversion);
 tButton.addEventListener("click", handleTempConversion);
+
+
+// TAB NAVIGATION
+// Shows the selected converter and hides the other converters.
+
+
+const weightTab = document.getElementById(
+    "weight-tab"
+) as HTMLButtonElement;
+
+const distanceTab = document.getElementById(
+    "distance-tab"
+) as HTMLButtonElement;
+
+const temperatureTab = document.getElementById(
+    "temperature-tab"
+) as HTMLButtonElement;
+
+const weightSection = document.getElementById(
+    "weight-section"
+) as HTMLElement;
+
+const distanceSection = document.getElementById(
+    "distance-section"
+) as HTMLElement;
+
+const temperatureSection = document.getElementById(
+    "temperature-section"
+) as HTMLElement;
+
+
+// Displays the selected converter section.
+const showConverter = (
+    section: HTMLElement,
+    activeTab: HTMLButtonElement
+): void => {
+
+    weightSection.classList.add("hidden");
+    distanceSection.classList.add("hidden");
+    temperatureSection.classList.add("hidden");
+
+    weightTab.classList.remove(
+        "text-blue-700",
+        "border-b-2",
+        "border-blue-700"
+    );
+
+    distanceTab.classList.remove(
+        "text-blue-700",
+        "border-b-2",
+        "border-blue-700"
+    );
+
+    temperatureTab.classList.remove(
+        "text-blue-700",
+        "border-b-2",
+        "border-blue-700"
+    );
+
+    section.classList.remove("hidden");
+
+    activeTab.classList.add(
+        "text-blue-700",
+        "border-b-2",
+        "border-blue-700"
+    );
+};
+
+
+// Weight tab
+weightTab.addEventListener("click", (): void => {
+    showConverter(weightSection, weightTab);
+});
+
+
+// Distance tab
+distanceTab.addEventListener("click", (): void => {
+    showConverter(distanceSection, distanceTab);
+});
+
+
+// Temperature tab
+temperatureTab.addEventListener("click", (): void => {
+    showConverter(temperatureSection, temperatureTab);
+});

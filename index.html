@@ -22,94 +22,165 @@
         </p>
     </section>
     
-    <main class="max-w-5xl mx-auto px-6 pb-16">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h3 class="text-lg font-bold text-slate-900">
-                    Weight
-                </h3>
-                <div>
-                    <select id="w-select-input" class="mb-4">
-                        <option>Kilograms to Pounds</option>
-                        <option>Pounds to Kilograms</option>
-                    </select>
-                </div>
-                <input
-                    id="w-input"
-                    type="string"
-                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
-                    focus:border-blue-500 focus:outline-none"
-                />
-                <button
-                    id="w-button"
-                    class="w-full mt-4 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white
-                    hover:bg-blue-700 transition cursor-pointer"
-                >
-                    Convert
-                </button>
-                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
-                    <p id="w-result" class="text-2xl font-bold text-blue-600 mt-1"></p>
-                </div>
-            </div>
-    
-    
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h3 class="text-lg font-bold text-slate-900">
-                    Distance
-                </h3>
-                <div>
-                    <select id="d-select-input" class="mb-4">
-                        <option>Miles to Kilometres</option>
-                        <option>Kilometres to Miles </option>
-                    </select>
-                </div>
-                <input
-                    id="d-input"
-                    type="string"
-                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
-                    focus:border-blue-500 focus:outline-none"
-                />
-                <button
-                    id="d-button"
-                    class="w-full mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white
-                    hover:bg-emerald-700 transition cursor-pointer">
-                    Convert
-                </button>
-                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
-                    <p id="d-result" class="text-2xl font-bold text-emerald-600 mt-1"></p>
-                </div>
-            </div>
-    
-    
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h3 class="text-lg font-bold text-slate-900">
-                    Temperture
-                </h3>
-                <div>
-                    <select id="t-select-input" class="mb-4">
-                        <option>Celsius to Fahrenheit</option>
-                        <option>Fahrenheit to Celsius</option>
-                    </select>
-                </div>
-                <input
-                    id="t-input"
-                    type="string"
-                    value="0"
-                    class="w-full rounded-lg border border-slate-300 px-4 py-2 text-slate-900
-                    focus:border-violet-500 focus:outline-none"
-                />
-                <button
-                    id="t-button"
-                    class="w-full mt-4 rounded-lg bg-violet-600 px-4 py-2 font-semibold text-white
-                    hover:bg-violet-700 transition cursor-pointer">
-                    Convert
-                </button>
-                <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
-                    <p id="t-result" class="text-2xl font-bold text-violet-600 mt-1"></p>
-                </div>
-            </div>
+    <!-- Converter Tabs -->
+<main class="max-w-5xl mx-auto px-6 pb-16">
+
+    <!-- Tab Buttons -->
+    <div class="flex justify-center gap-8 border-b border-slate-300 mb-8">
+
+        <button
+            id="weight-tab"
+            class="py-3 font-semibold text-blue-700 border-b-2 border-blue-700">
+            Weight
+        </button>
+
+        <button
+            id="distance-tab"
+            class="py-3 font-semibold text-slate-500">
+            Distance
+        </button>
+
+        <button
+            id="temperature-tab"
+            class="py-3 font-semibold text-slate-500">
+            Temperature
+        </button>
+
+    </div>
+
+
+    <!-- Weight Converter -->
+    <section
+        id="weight-section"
+        class="bg-white rounded-2xl shadow-md p-6">
+
+        <h3 class="text-lg font-bold text-slate-900">
+            Weight
+        </h3>
+
+        <div class="mt-4">
+            <select
+                id="w-select-input"
+                class="w-full rounded-lg border border-slate-300 px-4 py-2">
+                <option>Kilograms to Pounds</option>
+                <option>Pounds to Kilograms</option>
+            </select>
         </div>
-    </main>
+
+        <input
+            id="w-input"
+            type="text"
+            placeholder="Example: 10 or 10 20 30"
+            class="w-full mt-4 rounded-lg border border-slate-300 px-4 py-2 text-slate-900">
+
+        <button
+            id="w-button"
+            class="w-full mt-4 rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700 transition cursor-pointer">
+            Convert
+        </button>
+
+        <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+            <p class="text-sm font-semibold text-slate-600">
+                Result
+            </p>
+
+            <p
+                id="w-result"
+                class="text-2xl font-bold text-blue-600 mt-1">
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Distance Converter -->
+    <section
+        id="distance-section"
+        class="hidden bg-white rounded-2xl shadow-md p-6">
+
+        <h3 class="text-lg font-bold text-slate-900">
+            Distance
+        </h3>
+
+        <div class="mt-4">
+            <select
+                id="d-select-input"
+                class="w-full rounded-lg border border-slate-300 px-4 py-2">
+                <option>Miles to Kilometres</option>
+                <option>Kilometres to Miles</option>
+            </select>
+        </div>
+
+        <input
+            id="d-input"
+            type="text"
+            placeholder="Example: 5 or 5 10 15"
+            class="w-full mt-4 rounded-lg border border-slate-300 px-4 py-2 text-slate-900">
+
+        <button
+            id="d-button"
+            class="w-full mt-4 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700 transition cursor-pointer">
+            Convert
+        </button>
+
+        <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+            <p class="text-sm font-semibold text-slate-600">
+                Result
+            </p>
+
+            <p
+                id="d-result"
+                class="text-2xl font-bold text-emerald-600 mt-1">
+            </p>
+        </div>
+
+    </section>
+
+
+    <!-- Temperature Converter -->
+    <section
+        id="temperature-section"
+        class="hidden bg-white rounded-2xl shadow-md p-6">
+
+        <h3 class="text-lg font-bold text-slate-900">
+            Temperature
+        </h3>
+
+        <div class="mt-4">
+            <select
+                id="t-select-input"
+                class="w-full rounded-lg border border-slate-300 px-4 py-2">
+                <option>Celsius to Fahrenheit</option>
+                <option>Fahrenheit to Celsius</option>
+            </select>
+        </div>
+
+        <input
+            id="t-input"
+            type="text"
+            placeholder="Example: 20 or 20 25 30"
+            class="w-full mt-4 rounded-lg border border-slate-300 px-4 py-2 text-slate-900">
+
+        <button
+            id="t-button"
+            class="w-full mt-4 rounded-lg bg-violet-600 px-4 py-2 font-semibold text-white hover:bg-violet-700 transition cursor-pointer">
+            Convert
+        </button>
+
+        <div class="mt-5 rounded-lg bg-slate-50 p-4 text-center">
+            <p class="text-sm font-semibold text-slate-600">
+                Result
+            </p>
+
+            <p
+                id="t-result"
+                class="text-2xl font-bold text-violet-600 mt-1">
+            </p>
+        </div>
+
+    </section>
+
+</main>
     <script type="module" src="/main.js"></script>
 </body>
 </html>
